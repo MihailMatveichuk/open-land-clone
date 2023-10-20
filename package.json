@@ -1,0 +1,71 @@
+{
+  "name": "rs-clone-app",
+  "version": "0.1.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MihailMatveichuk/rs-clone-social-network.git"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@firebase/util": "^1.9.3",
+    "@github/file-attachment-element": "^3.1.0",
+    "am-emoji-picker": "^0.6.1",
+    "bootstrap": "^5.3.2",
+    "classnames": "^2.3.2",
+    "emoji-picker-react": "^4.4.7",
+    "firebase": "^9.23.0",
+    "formik": "^2.2.9",
+    "http-proxy-middleware": "^2.0.6",
+    "moment": "^2.29.4",
+    "next": "13.5.5",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "qs": "^6.11.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-file-picker": "^0.0.6",
+    "react-firebase-hooks": "^5.1.1",
+    "react-google-button": "^0.7.2",
+    "react-icons": "^4.11.0",
+    "react-input-emoji": "^4.3.0",
+    "react-loader-spinner": "^5.3.4",
+    "react-player": "^2.11.2",
+    "react-scripts": "^5.0.1",
+    "react-use-file-upload": "^0.9.5",
+    "rm-emoji-picker": "^1.0.0",
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.0",
+    "video-react": "^0.16.0",
+    "yup": "^1.0.0",
+    "zustand": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.5",
+    "node-sass": "^7.0.3",
+    "prettier": "^2.8.1",
+    "react-refresh": "^0.14.0",
+    "sass": "^1.58.0",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "eslint --fix"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,sass,md}": [
+      "prettier --write"
+    ]
+  }
+}

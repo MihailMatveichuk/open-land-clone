@@ -1,0 +1,29 @@
+.bottom_part {
+  display: flex;
+  max-width: 90%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+
+  .team_logo {
+    cursor: pointer;
+    display: flex;
+    column-gap: 10px;
+    img {
+      opacity: 10%;
+      transition: all 1s;
+    }
+    img:hover {
+      opacity: 10;
+    }
+  }
+  .rs_logo {
+    img {
+      opacity: 10%;
+      transition: all 1s;
+    }
+    img:hover {
+      opacity: 10;
+    }
+  }
+}
