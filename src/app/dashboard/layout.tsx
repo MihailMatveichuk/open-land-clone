@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Leftsidebar from '@/components/leftside-bar/LeftsideBar';
-import '../../../public/assets/styles/chat-page.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 

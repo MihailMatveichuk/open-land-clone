@@ -12,8 +12,6 @@ import { updateProfile } from 'firebase/auth';
 import InputFile from '@/app/register/components/InputFile';
 import CustomInput from '../components/Input';
 import logoSrc from '../../../../public/assets/images/Avatar.png';
-import '../../../../public/assets/styles/settings.scss';
-import '../../../../public/assets/styles/style.scss';
 
 const SettingsPage = () => {
   const { currentUser } = useContext(AuthContext);

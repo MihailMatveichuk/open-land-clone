@@ -8,7 +8,6 @@ import phoneSrc from '../../../../../public/assets/images/phone.svg';
 import emailSrc from '../../../../../public/assets/images/mail.svg';
 import joinedSrc from '../../../../../public/assets/images/joined.svg';
 import Avatar from '../../../../../public/assets/images/Avatar.png';
-import '../../../../../public/assets/styles/user.scss';
 
 type UserInfoProps = {
   userUid: string;

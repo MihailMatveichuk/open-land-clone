@@ -4,8 +4,6 @@ import { useState } from 'react';
 import FormLayout from '../components/FormLayout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import '../../../../public/assets/styles/on-boarding.scss';
-import '../../../../public/assets/styles/style.scss';
 
 const AuthEmail = () => {
   const [email, setEmail] = useState<string>('');

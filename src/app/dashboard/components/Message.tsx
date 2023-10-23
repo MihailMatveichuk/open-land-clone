@@ -11,8 +11,6 @@ import Like from '../../../../public/assets/images/Like.png';
 import Dislike from '../../../../public/assets/images/Dislike.png';
 import Image from 'next/image';
 import { getExtension } from '@/utlis/getExtension';
-import '../../../../public/assets/styles/style.scss';
-import '../../../../public/assets/styles/chat-page.scss';
 // import { checkUser } from '../../../../../../../api/seed';
 // import Avatar from '../../../../public/assets/images/Avatar.png';
 // import { doc, getDoc, updateDoc } from 'firebase/firestore';

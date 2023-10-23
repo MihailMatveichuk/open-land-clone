@@ -3,9 +3,6 @@ import gitHub from '../../../public/assets/images/github.png';
 import rsLogo from '../../../public/assets/images/RS_logo.png';
 import Link from 'next/link';
 import Image from 'next/image';
-import '../../../public/assets/styles/info_page.scss';
-import '../../../public/assets/styles/on-boarding.scss';
-import '../../../public/assets/styles/style.scss';
 
 const OnBoarding = () => {
   return (

@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import FormLayout from '../components/FormLayout';
 import { useRouter } from 'next/navigation';
-import '../../../../public/assets/styles/style.scss';
 
 const AuthPhone = () => {
   const [step, setStep] = useState<number>(1);

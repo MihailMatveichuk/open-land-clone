@@ -3,8 +3,6 @@
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import '../../../../public/assets/styles/on-boarding.scss';
-import '../../../../public/assets/styles/style.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 

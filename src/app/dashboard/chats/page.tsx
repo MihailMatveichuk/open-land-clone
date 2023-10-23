@@ -19,8 +19,6 @@ import { db } from '../../../../firebase';
 import { ActionType, authUser, UserBD } from '../../../../types';
 import { ChatContext } from '@/context/Chatcontext';
 import { createChat, getChat, checkUser } from '../../../../api/seed';
-
-import { Params } from 'react-router-dom';
 import Aside from '../components/Aside';
 import Chats from '../components/Chats';
 import Chat from '../components/Chat';

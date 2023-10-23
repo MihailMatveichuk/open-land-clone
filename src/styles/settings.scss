@@ -49,8 +49,8 @@
     gap: 16px;
   }
   textarea {
-    resize: none;
-    background: rgba(201, 204, 209, 0.24);
+    //resize: vertical;
+    background: var(--theme-input);
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 20px;
@@ -61,7 +61,7 @@
     line-height: 24px;
     color: var(--theme-main-text);
     &::placeholder {
-      color: #9d9fa3;
+      color: var(--theme-input-placeholder);
     }
   }
 }

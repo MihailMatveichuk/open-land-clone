@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../../public/assets/styles/ui.scss';
 type InputProps = {
   errorText: string;
   value: string;

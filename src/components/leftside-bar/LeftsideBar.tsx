@@ -1,8 +1,6 @@
 import logo from '../../../public/assets/images/logo.png';
 import Link from 'next/link';
 import Image from 'next/image';
-import '../../../public/assets/styles/left-side-bar.scss';
-import '../../../public/assets/styles/style.scss';
 
 const Leftsidebar = () => {
   return (

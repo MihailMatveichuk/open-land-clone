@@ -7,7 +7,6 @@ import { ChatContext } from '@/context/Chatcontext';
 import { db } from '../../../../firebase';
 import { IMessageFirebase } from '../../../../types';
 import Message from './Message';
-import '../../../../public/assets/styles/chat-page.scss';
 
 const Messages = () => {
   // const [messages, setMessages] = useState([]);

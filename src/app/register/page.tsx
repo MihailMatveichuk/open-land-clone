@@ -4,7 +4,6 @@ import InputFile from './components/InputFile';
 import { useState } from 'react';
 import logoSrc from '../../../public/assets/images/Avatar.png';
 import { useRouter } from 'next/navigation';
-import '../../../public/assets/styles/style.scss';
 
 const Register = () => {
   const [image, setImage] = useState<string | ArrayBuffer>(logoSrc);

@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import '../../../../public/assets/styles/ui.scss';
 
 type InputFileProps = {
   src: string | ArrayBuffer;
