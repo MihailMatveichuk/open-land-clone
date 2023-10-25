@@ -1,6 +1,7 @@
-import logo from '../../../public/assets/images/logo.png';
+import logo from '../../../../public/assets/images/logo.png';
 import Link from 'next/link';
 import Image from 'next/image';
+import '../../../../public/assets/styles/left-side-bar.scss';
 
 const Leftsidebar = () => {
   return (
@@ -91,7 +92,7 @@ const Leftsidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href="/dashboard//notification">
+            <Link href="/dashboard/notification">
               <svg
                 width="24"
                 height="24"
@@ -116,7 +117,7 @@ const Leftsidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href="/dashboard//settings">
+            <Link href="/dashboard/settings">
               <svg
                 width="24"
                 height="24"

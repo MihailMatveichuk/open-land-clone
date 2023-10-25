@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'mixins';
+@import '../styles/variables';
+@import '../styles/mixins';
 
 :root.light {
   @include spread-map($theme-map-light);

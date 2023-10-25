@@ -1,6 +1,6 @@
 'use client';
 
-import Launcher from '@/components/Launcher';
+import Launcher from '@/app/dashboard/components/Launcher';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {

@@ -1,30 +1,11 @@
-@import '../../public/assets/styles/themes.scss';
-@import '../../public/assets/styles/reset';
-@import '../../public/assets/styles/on-boarding.scss';
-@import '../../public/assets/styles/chat-page.scss';
-@import '../../public/assets/styles/user.scss';
-@import '../../public/assets/styles/ui.scss';
-@import '../../public/assets/styles/settings.scss';
-
-
-:root{
---theme-bg: #fff;
---theme-scrollbar-track: #c4c4c4;
---chat-info-bg: #fff;
---chat-bg: #ececec;
---theme-aside-bg: rgba(0, 0, 0, 0.08);
---theme-primary: #248bf2;
---theme-main-text: #171a1f;
---theme-primary-hovered: #3399ff;
---theme-primary-active: #1677d9;
---theme-grey-text: #71747a;
---svg-fill: #71747a;
---theme-grey-background: #f2f3f5;
---theme-grey-background-hovered: #ebedf0;
---theme-grey-background-active: #1677d9;
---theme-input-placeholder: #9d9fa3;
---theme-input: rgba(201, 204, 209, 0.24);
-}
+// @import 'variables';
+@import 'themes';
+@import 'reset';
+@import 'on-boarding';
+@import 'chat-page';
+@import 'user';
+@import 'ui';
+@import 'settings';
 
 html,
 body,
@@ -61,8 +42,6 @@ body {
 .registra-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .registra-form {

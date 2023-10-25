@@ -15,7 +15,9 @@
   "dependencies": {
     "@firebase/util": "^1.9.3",
     "@github/file-attachment-element": "^3.1.0",
+    "@zeit/next-sass": "^1.0.1",
     "am-emoji-picker": "^0.6.1",
+    "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
     "classnames": "^2.3.2",
     "emoji-picker-react": "^4.4.7",
@@ -24,6 +26,7 @@
     "http-proxy-middleware": "^2.0.6",
     "moment": "^2.29.4",
     "next": "13.5.5",
+    "next-sass": "^1.0.3",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "qs": "^6.11.0",

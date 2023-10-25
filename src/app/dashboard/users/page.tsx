@@ -1,4 +1,4 @@
-import React from 'react';
+import { Suspense } from 'react';
 import ContactsPage from './components/ContactsPage';
 
 const page = () => {

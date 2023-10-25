@@ -41,7 +41,9 @@ const UserInfo = () => {
             <h2>Mikhail</h2>
             <div className="user-info__last-seen"></div>
             <div className="user-info__btn-container">
-              <button className="btn btn--primary">Send message</button>
+              <Link href="/dashboard/chats" className="btn btn--primary">
+                Send message
+              </Link>
               <button className="btn btn--grey">Add to contacts</button>
             </div>
           </div>
@@ -125,7 +127,7 @@ const UserInfo = () => {
           </ul>
           <div className="user-info__main-info">
             If you don`t have contacts you can go and{' '}
-            <Link href="/users">search for users to chat with</Link>.
+            <Link href="/dashboard/users">search for users to chat with</Link>.
             <br />
             if you already have chats,{' '}
             <Link href="/dashboard/chats">go and chat!</Link>
