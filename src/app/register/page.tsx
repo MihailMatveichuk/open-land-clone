@@ -14,7 +14,7 @@ const Register = () => {
   }) => {
     e.preventDefault();
     try {
-      push('/main');
+      push('/dashboard/main');
     } catch (err) {
       console.log(err);
     }

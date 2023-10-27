@@ -1,6 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import {
+  browserSessionPersistence,
+  signInWithEmailAndPassword,
+  setPersistence,
+  // UserCredential,
+  createUserWithEmailAndPassword,
+  // GoogleAuthProvider,
+  // signInWithPopup,
+  // updateProfile,
+} from 'firebase/auth';
+import { auth } from '../../../../firebase';
+import { checkUser, createUserViaEmail, loginUser } from '../../../../api/seed';
 import FormLayout from '../components/FormLayout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,8 +23,39 @@ const AuthEmail = () => {
 
   const { push } = useRouter();
 
+  const login = async () => {
+    try {
+      await setPersistence(auth, browserSessionPersistence);
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      await loginUser(res.user.uid);
+      push('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const onSubmitHandlerEmail = async () => {
-    push('/dashboard/main');
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      const u = await checkUser(user.user.uid);
+      if (!u && user.user.email) {
+        await createUserViaEmail({
+          email: user.user.email,
+          uid: user.user.uid,
+        });
+        push('/register');
+      } else {
+        push('/dashboard/main');
+      }
+    } catch (e) {
+      const err = e as Error;
+      console.log(err.message);
+
+      if (err.message === 'Firebase: Error (auth/email-already-in-use).') {
+        await login();
+        push('/dashboard/main');
+      }
+    }
   };
   return (
     <div className="on-boarding">
