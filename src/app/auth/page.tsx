@@ -1,6 +1,4 @@
 import logoSrc from '../../../public/assets/images/logo.png';
-import gitHub from '../../../public/assets/images/github.png';
-import rsLogo from '../../../public/assets/images/RS_logo.png';
 import Link from 'next/link';
 import Image from 'next/image';
 
