@@ -3,8 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { auth } from '../../../../firebase';
 import { logoutUser } from '../../../../api/seed';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../../../../public/assets/styles/left-side-bar.scss';
+import { AuthContext } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Leftsidebar = () => {
@@ -14,6 +16,8 @@ const Leftsidebar = () => {
     await logoutUser(currentUser!.uid);
     await auth.signOut();
   };
+
+  console.log(currentUser);
 
   return (
     <div className="sidebar">
@@ -25,7 +29,7 @@ const Leftsidebar = () => {
       <nav className="nav">
         <ul className="nav__list">
           <li>
-            <Link href="discover">
+            <Link href="/dashboard/discover">
               <svg
                 width="24"
                 height="24"

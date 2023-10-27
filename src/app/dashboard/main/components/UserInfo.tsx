@@ -1,13 +1,15 @@
 'use client';
 
-import { DocumentData } from 'firebase/firestore';
-import React, { useCallback, useState, useEffect } from 'react';
+import { DocumentData, Timestamp } from 'firebase/firestore';
+import React, { useCallback, useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import phoneSrc from '../../../../../public/assets/images/phone.svg';
 import emailSrc from '../../../../../public/assets/images/mail.svg';
 import joinedSrc from '../../../../../public/assets/images/joined.svg';
 import Avatar from '../../../../../public/assets/images/Avatar.png';
+import { checkUser } from '../../../../../api/seed';
+import { getLastSeenText } from '@/utlis/lastSeen';
 
 type UserInfoProps = {
   userUid: string;
@@ -15,8 +17,23 @@ type UserInfoProps = {
   onSendMessage?: () => void;
 };
 
-const UserInfo = () => {
+const UserInfo: React.FC<UserInfoProps> = ({
+  userUid,
+  isMain = false,
+  onSendMessage,
+}) => {
   const [user, setUser] = useState<DocumentData | null>(null);
+
+  useEffect(() => {
+    getUser();
+  }, [userUid]);
+
+  const getUser = async () => {
+    const u = await checkUser(userUid);
+    if (u) {
+      setUser(u);
+    }
+  };
 
   const date = user
     ? user.createdAt && user.createdAt.toDate().toLocaleString()
@@ -37,15 +54,21 @@ const UserInfo = () => {
       <div className="user-info__content">
         <div className="user-info__content-left">
           <div className="user-info__info">
-            <Image src={Avatar} alt="photoURL" />
-            <h2>Mikhail</h2>
-            <div className="user-info__last-seen"></div>
-            <div className="user-info__btn-container">
-              <Link href="/dashboard/chats" className="btn btn--primary">
-                Send message
-              </Link>
-              <button className="btn btn--grey">Add to contacts</button>
-            </div>
+            <Image src={user?.photoURL || Avatar} alt="photoURL" />
+            <h2>{user?.displayName}</h2>
+            {!isMain && (
+              <>
+                <div className="user-info__last-seen">
+                  {user?.online ? 'online' : getLastSeenText(user?.lastSeen)}
+                </div>
+                <div className="user-info__btn-container">
+                  <button className="btn btn--primary" onClick={onSendMessage}>
+                    Send message
+                  </button>
+                  <button className="btn btn--grey">Add to contacts</button>
+                </div>
+              </>
+            )}
           </div>
           <ul className="user-info__controls">
             <li onClickCapture={copyLink}>
@@ -74,38 +97,40 @@ const UserInfo = () => {
               </svg>
               {!isLinkCopied ? 'Copy link' : 'Copied'}
             </li>
-            <li>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clipPath="url(#clip0_15105_90843)">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M7.25 5.25012C7.25 2.62677 9.37665 0.500122 12 0.500122C14.6234 0.500122 16.75 2.62677 16.75 5.25012C16.75 7.87347 14.6234 10.0001 12 10.0001C9.37665 10.0001 7.25 7.87347 7.25 5.25012ZM12 2.50012C10.4812 2.50012 9.25 3.73134 9.25 5.25012C9.25 6.76891 10.4812 8.00012 12 8.00012C13.5188 8.00012 14.75 6.76891 14.75 5.25012C14.75 3.73134 13.5188 2.50012 12 2.50012Z"
-                    fill="#71747A"
-                  />
-                  <path
-                    d="M1.5 18.5001C1.5 16.2776 4.13498 12.0001 12 12.0001C12.5523 12.0001 13 12.4478 13 13.0001C13 13.5524 12.5523 14.0001 12 14.0001C4.86502 14.0001 3.5 17.7227 3.5 18.5001C3.5 19.0229 3.66989 19.3808 3.89461 19.6055C4.11933 19.8302 4.47725 20.0001 5 20.0001H11C11.5523 20.0001 12 20.4478 12 21.0001C12 21.5524 11.5523 22.0001 11 22.0001H5C4.02275 22.0001 3.13067 21.67 2.48039 21.0197C1.83011 20.3694 1.5 19.4774 1.5 18.5001Z"
-                    fill="#71747A"
-                  />
-                  <path
-                    d="M22.7071 14.293C23.0976 14.6835 23.0976 15.3167 22.7071 15.7072L20.4142 18.0001L22.7071 20.293C23.0976 20.6835 23.0976 21.3167 22.7071 21.7072C22.3166 22.0978 21.6834 22.0978 21.2929 21.7072L19 19.4143L16.7071 21.7072C16.3166 22.0978 15.6834 22.0978 15.2929 21.7072C14.9024 21.3167 14.9024 20.6835 15.2929 20.293L17.5858 18.0001L15.2929 15.7072C14.9024 15.3167 14.9024 14.6835 15.2929 14.293C15.6834 13.9025 16.3166 13.9025 16.7071 14.293L19 16.5859L21.2929 14.293C21.6834 13.9025 22.3166 13.9025 22.7071 14.293Z"
-                    className="svgFill"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_15105_90843">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              Remove from contacts
-            </li>
+            {!isMain && (
+              <li>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clipPath="url(#clip0_15105_90843)">
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M7.25 5.25012C7.25 2.62677 9.37665 0.500122 12 0.500122C14.6234 0.500122 16.75 2.62677 16.75 5.25012C16.75 7.87347 14.6234 10.0001 12 10.0001C9.37665 10.0001 7.25 7.87347 7.25 5.25012ZM12 2.50012C10.4812 2.50012 9.25 3.73134 9.25 5.25012C9.25 6.76891 10.4812 8.00012 12 8.00012C13.5188 8.00012 14.75 6.76891 14.75 5.25012C14.75 3.73134 13.5188 2.50012 12 2.50012Z"
+                      fill="#71747A"
+                    />
+                    <path
+                      d="M1.5 18.5001C1.5 16.2776 4.13498 12.0001 12 12.0001C12.5523 12.0001 13 12.4478 13 13.0001C13 13.5524 12.5523 14.0001 12 14.0001C4.86502 14.0001 3.5 17.7227 3.5 18.5001C3.5 19.0229 3.66989 19.3808 3.89461 19.6055C4.11933 19.8302 4.47725 20.0001 5 20.0001H11C11.5523 20.0001 12 20.4478 12 21.0001C12 21.5524 11.5523 22.0001 11 22.0001H5C4.02275 22.0001 3.13067 21.67 2.48039 21.0197C1.83011 20.3694 1.5 19.4774 1.5 18.5001Z"
+                      fill="#71747A"
+                    />
+                    <path
+                      d="M22.7071 14.293C23.0976 14.6835 23.0976 15.3167 22.7071 15.7072L20.4142 18.0001L22.7071 20.293C23.0976 20.6835 23.0976 21.3167 22.7071 21.7072C22.3166 22.0978 21.6834 22.0978 21.2929 21.7072L19 19.4143L16.7071 21.7072C16.3166 22.0978 15.6834 22.0978 15.2929 21.7072C14.9024 21.3167 14.9024 20.6835 15.2929 20.293L17.5858 18.0001L15.2929 15.7072C14.9024 15.3167 14.9024 14.6835 15.2929 14.293C15.6834 13.9025 16.3166 13.9025 16.7071 14.293L19 16.5859L21.2929 14.293C21.6834 13.9025 22.3166 13.9025 22.7071 14.293Z"
+                      className="svgFill"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_15105_90843">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                Remove from contacts
+              </li>
+            )}
           </ul>
         </div>
         <div className="user-info__content-right">
@@ -116,22 +141,27 @@ const UserInfo = () => {
           <ul className="user-info__short-info">
             <li>
               <Image alt="phone" src={phoneSrc} />
+              {user?.phone ? user.phone : '-'}
             </li>
             <li>
               <Image alt="email" src={emailSrc} />
+              {user?.email ? user.email : '-'}
             </li>
             <li>
               <Image alt="joined" src={joinedSrc} />
               {`Joined: ${date}`}
             </li>
           </ul>
-          <div className="user-info__main-info">
-            If you don`t have contacts you can go and{' '}
-            <Link href="/dashboard/users">search for users to chat with</Link>.
-            <br />
-            if you already have chats,{' '}
-            <Link href="/dashboard/chats">go and chat!</Link>
-          </div>
+          {isMain && (
+            <div className="user-info__main-info">
+              If you don`t have contacts you can go and{' '}
+              <Link href="/dashboard/users">search for users to chat with</Link>
+              .
+              <br />
+              if you already have chats,{' '}
+              <Link href="/dashboard/chats">go and chat!</Link>
+            </div>
+          )}
         </div>
       </div>
     </main>
