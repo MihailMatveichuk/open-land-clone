@@ -1,9 +1,20 @@
 import logo from '../../../../public/assets/images/logo.png';
 import Link from 'next/link';
 import Image from 'next/image';
+import { auth } from '../../../../firebase';
+import { logoutUser } from '../../../../api/seed';
+import React, { useContext } from 'react';
 import '../../../../public/assets/styles/left-side-bar.scss';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Leftsidebar = () => {
+  const [currentUser] = useAuthState(auth);
+
+  const onSignOutHandler = async () => {
+    await logoutUser(currentUser!.uid);
+    await auth.signOut();
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar__logo">
@@ -144,8 +155,8 @@ const Leftsidebar = () => {
         </ul>
       </nav>
       <div style={{ flex: '1' }}></div>
-      <Link
-        href={'/auth'}
+      <button
+        onClick={onSignOutHandler}
         className="sidebar__logout-btn"
         style={{
           display: 'flex',
@@ -165,7 +176,7 @@ const Leftsidebar = () => {
             className="svgFill"
           />
         </svg>
-      </Link>
+      </button>
     </div>
   );
 };

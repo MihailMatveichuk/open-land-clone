@@ -1,14 +1,13 @@
 'use client';
 
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { useRouter } from 'next/navigation';
 import Leftsidebar from '@/app/dashboard/components/LeftsideBar';
 import { usePathname } from 'next/navigation';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import Launcher from './components/Launcher';
-
-const inter = Inter({ subsets: ['latin'] });
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../../firebase';
 
 export default function RootLayout({
   children,
@@ -18,12 +17,26 @@ export default function RootLayout({
   const pathname = usePathname();
   const [status, setStatus] = useState('');
   const url = `http://localhost:3000${pathname}`;
+  const { push } = useRouter();
+  const [currentUser] = useAuthState(auth);
+
+  const ProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
+    if (currentUser === undefined) {
+      return <Launcher />;
+    }
+    if (currentUser === null) {
+      push('/auth');
+    }
+    return <>{children}</>;
+  };
 
   useEffect(() => {
     axios.get(url).then((data) => {
       setStatus(data.statusText);
     });
   }, [url]);
+
+  console.log(currentUser);
 
   return (
     <html lang="en">
@@ -33,14 +46,16 @@ export default function RootLayout({
           height: '100vh',
         }}
       >
-        {status == 'OK' ? (
-          <>
-            <Leftsidebar />
-            {children}
-          </>
-        ) : (
-          <Launcher />
-        )}
+        <ProtectedRoute>
+          {status == 'OK' ? (
+            <>
+              <Leftsidebar />
+              {children}
+            </>
+          ) : (
+            <Launcher />
+          )}
+        </ProtectedRoute>
       </body>
     </html>
   );
