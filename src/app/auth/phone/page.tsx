@@ -22,14 +22,6 @@ const AuthPhone = () => {
   const [confirmRes, setConfirmRes] = useState<ConfirmationResult | null>(null);
   const { push } = useRouter();
 
-  const onBackClick = () => {
-    if (step === 2) {
-      setStep(1);
-    } else {
-      push('/auth');
-    }
-  };
-
   useEffect(() => {
     if (step === 1) {
       try {

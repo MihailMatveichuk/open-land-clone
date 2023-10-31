@@ -10,14 +10,15 @@ import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Leftsidebar = () => {
+  // const { currentUser } = useContext(AuthContext);
   const [currentUser] = useAuthState(auth);
+  const { push } = useRouter();
 
   const onSignOutHandler = async () => {
     await logoutUser(currentUser!.uid);
     await auth.signOut();
+    push('/');
   };
-
-  console.log(currentUser);
 
   return (
     <div className="sidebar">

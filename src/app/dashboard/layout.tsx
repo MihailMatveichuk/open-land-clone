@@ -9,6 +9,7 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 import Launcher from './components/Launcher';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../../firebase';
+import { ChatContextProvider } from '@/context/Chatcontext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,28 +21,12 @@ export default function RootLayout({
   const pathname = usePathname();
   // const [status, setStatus] = useState('');
   // const url = `http://localhost:3000${pathname}`;
-  const router = useRouter();
-  const [currentUser] = useAuthState(auth);
-
-  console.log(currentUser);
-
-  const ProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
-    if (currentUser === undefined) {
-      return <Launcher />;
-    }
-    if (currentUser === null) {
-      router.push('/auth');
-    }
-    return <>{children}</>;
-  };
 
   // useEffect(() => {
   //   axios.get(url).then((data) => {
   //     setStatus(data.statusText);
   //   });
   // }, [url]);
-
-  console.log(currentUser);
 
   return (
     <html lang="en">
@@ -51,12 +36,12 @@ export default function RootLayout({
           height: '100vh',
         }}
       >
-        <ProtectedRoute>
+        <ChatContextProvider>
           <>
             <Leftsidebar />
             {children}
           </>
-        </ProtectedRoute>
+        </ChatContextProvider>
       </body>
     </html>
   );
