@@ -54,7 +54,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
       <div className="user-info__content">
         <div className="user-info__content-left">
           <div className="user-info__info">
-            <Image src={user?.photoURL || Avatar} alt="photoURL" width={120} />
+            <img src={user?.photoURL || Avatar} alt="photoURL" />
             <h2>{user?.displayName}</h2>
             {!isMain && (
               <>
@@ -140,15 +140,15 @@ const UserInfo: React.FC<UserInfoProps> = ({
           </div>
           <ul className="user-info__short-info">
             <li>
-              <Image alt="phone" src={phoneSrc} />
+              <Image alt="phone" src={phoneSrc} height={25} width={25} />
               {user?.phone ? user.phone : '-'}
             </li>
             <li>
-              <Image alt="email" src={emailSrc} />
+              <Image alt="email" src={emailSrc} height={25} width={25} />
               {user?.email ? user.email : '-'}
             </li>
             <li>
-              <Image alt="joined" src={joinedSrc} />
+              <Image alt="joined" src={joinedSrc} height={25} width={25} />
               {`Joined: ${date}`}
             </li>
           </ul>

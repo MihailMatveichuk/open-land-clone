@@ -22,17 +22,18 @@ import {
 import Loading from './Loading';
 import ChatCard from './ChatCard';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 {
-  /* <ColorRing
-  visible={true}
-  height="50"
-  width="50"
-  ariaLabel="blocks-loading"
-  wrapperStyle={{}}
-  wrapperClass="blocks-wrapper"
-  colors={['#b8c480', '#B2A3B5', '#F4442E', '#51E5FF', '#429EA6']}
-/>; */
+  <ColorRing
+    visible={true}
+    height="50"
+    width="50"
+    ariaLabel="blocks-loading"
+    wrapperStyle={{}}
+    wrapperClass="blocks-wrapper"
+    colors={['#b8c480', '#B2A3B5', '#F4442E', '#51E5FF', '#429EA6']}
+  />;
 }
 
 type ChatsProps = {
@@ -53,7 +54,6 @@ const Chats: React.FC<ChatsProps> = ({
 
   const handleSelect = (u: any) => {
     dispatch({ type: ActionType.ChangeUser, payload: u });
-    push(`${u.user}`);
   };
 
   return (
@@ -70,10 +70,18 @@ const Chats: React.FC<ChatsProps> = ({
             >
               <div className="container">
                 <div className="user-chat__inner">
-                  {user.photoURL && (
+                  {user.photoURL ? (
                     <img
                       className="user-chat__img"
                       src={user.photoURL}
+                      alt="hi"
+                    />
+                  ) : (
+                    <Image
+                      className="user-chat__img"
+                      src="/public/assets/images/Avatar.png"
+                      width={50}
+                      height={50}
                       alt="hi"
                     />
                   )}

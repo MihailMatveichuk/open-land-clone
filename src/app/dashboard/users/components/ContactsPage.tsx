@@ -61,14 +61,7 @@ const ContactsPage = () => {
   };
 
   const handleSendMessage = async () => {
-    // push(`/chats/chat=${chosenUser!.uid}`);
-    push(`/chats/chat=Igor`);
-    // navigate({
-    //   pathname: '/chats',
-    //   search: createSearchParams({
-    //     chat: chosenUser!.uid,
-    //   }).toString(),
-    // });
+    push(`/dashboard/chats/${chosenUser!.uid}`);
   };
 
   useEffect(() => {
@@ -94,9 +87,9 @@ const ContactsPage = () => {
       </Aside>
       {/* {chosenUser && ( */}
       <UserInfo
-      // userUid={chosenUser.uid}
-      // isMain={false}
-      // onSendMessage={handleSendMessage}
+        userUid={chosenUser?.uid}
+        isMain={false}
+        onSendMessage={handleSendMessage}
       />
       {/* )} */}
     </>

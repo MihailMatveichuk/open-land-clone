@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../../context/AuthContext';
+import { AuthContext } from '../../../../context/AuthContext';
 import {
   collection,
   query,
@@ -15,14 +15,14 @@ import {
   getDoc,
   DocumentData,
 } from 'firebase/firestore';
-import { db } from '../../../../firebase';
-import { ActionType } from '../../../../types';
+import { db } from '../../../../../firebase';
+import { ActionType } from '../../../../../types';
 import { ChatContext } from '@/context/Chatcontext';
-import { createChat, getChat, checkUser } from '../../../../api/seed';
-import Aside from '../components/Aside';
-import Chat from '../components/Chat';
-import SearchInput from '../components/SearchInput';
-import Chats from '../components/Chats';
+import { createChat, getChat, checkUser } from '../../../../../api/seed';
+import Aside from '../../components/Aside';
+import Chat from '../../components/Chat';
+import SearchInput from '../../components/SearchInput';
+import Chats from '../../components/Chats';
 
 const ChatPage = ({ params }: { params: { slug: string } }) => {
   const { currentUser } = useContext(AuthContext);
@@ -36,12 +36,13 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  console.log(params.slug);
+
   const gtChats = () => {
     setLoading(true);
     const unsub = onSnapshot(doc(db, 'chats', currentUser!.uid), async (d) => {
       if (d && d.data()) {
         const data = d.data();
-
         if (data) {
           console.log(data.chats, 'data');
 
@@ -80,6 +81,7 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
     } else {
       const filtered = chats!.filter((chat) => {
         const user = users.find((user) => user.uid === chat.memberId);
+        console.log(user);
 
         if (!user) return false;
         return (
@@ -103,6 +105,8 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
       }
     };
     if (memberId && currentUser) {
+      console.log(memberId);
+
       getChatById(memberId);
     }
   }, [memberId]);
@@ -119,6 +123,7 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
           uid: newChat[0].uid,
         },
       });
+      console.log(chat, newChat);
     } else {
       dispatch({
         type: ActionType.ChangeUser,
@@ -127,6 +132,7 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
           uid: chat[0].uid,
         },
       });
+      console.log(chat);
     }
   };
 
