@@ -16,7 +16,6 @@ export const AuthContext = createContext<ContextUser>({
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [currentUser, setCurrentUser] = useState<User | null>();
-  console.log(currentUser);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user: userWithTheme | null) => {

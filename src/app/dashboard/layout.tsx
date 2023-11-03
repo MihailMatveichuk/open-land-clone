@@ -1,15 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import Leftsidebar from '@/app/dashboard/components/LeftsideBar';
-import { usePathname } from 'next/navigation';
-import axios from 'axios';
-import { PropsWithChildren, useEffect, useState } from 'react';
-import Launcher from './components/Launcher';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../../firebase';
 import { ChatContextProvider } from '@/context/Chatcontext';
+import { PropsWithChildren, useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
+import Launcher from './components/Launcher';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,15 +15,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  // const [status, setStatus] = useState('');
-  // const url = `http://localhost:3000${pathname}`;
+  const { currentUser } = useContext(AuthContext);
+  const { push } = useRouter();
 
-  // useEffect(() => {
-  //   axios.get(url).then((data) => {
-  //     setStatus(data.statusText);
-  //   });
-  // }, [url]);
+  const ProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
+    if (currentUser === undefined) {
+      return <Launcher />;
+    }
+    if (currentUser === null) {
+      push('/auth');
+    }
+    return <>{children}</>;
+  };
+
+  console.log(currentUser);
 
   return (
     <html lang="en">
@@ -37,10 +39,10 @@ export default function RootLayout({
         }}
       >
         <ChatContextProvider>
-          <>
+          <ProtectedRoute>
             <Leftsidebar />
             {children}
-          </>
+          </ProtectedRoute>
         </ChatContextProvider>
       </body>
     </html>

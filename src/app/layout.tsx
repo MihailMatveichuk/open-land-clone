@@ -16,22 +16,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  const [currentUser] = useAuthState(auth);
-
-  console.log(currentUser);
-
-  // const ProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
-
-  if (currentUser === undefined) {
-    return <Launcher />;
-  } else if (currentUser === null) {
-    router.push('/auth');
-  } else {
-    router.push('/dashboard/main');
-  }
-
-  // };
   return (
     <html lang="en">
       <body className={inter.className}>

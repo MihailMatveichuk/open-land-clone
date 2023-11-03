@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   browserSessionPersistence,
   signInWithEmailAndPassword,
