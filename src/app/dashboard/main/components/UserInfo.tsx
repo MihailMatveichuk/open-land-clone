@@ -49,6 +49,8 @@ const UserInfo: React.FC<UserInfoProps> = ({
     }, 1500);
   }, [user]);
 
+  console.log(user);
+
   return (
     <main className={['user-info' ? 'main' : ''].join(' ')}>
       <div className="user-info__content">

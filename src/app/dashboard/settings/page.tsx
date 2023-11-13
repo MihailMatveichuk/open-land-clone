@@ -2,6 +2,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 // import UserInfo from '../../components/Main/UserInfo';
+const logoSrc = require('../../../../public/assets/images/Avatar.png');
 import { AuthContext } from '../../../context/AuthContext';
 import { changeUserTheme, checkUser } from '../../../../api/seed';
 import { doc, DocumentData, updateDoc } from 'firebase/firestore';
@@ -11,7 +12,6 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
 import InputFile from '@/app/register/components/InputFile';
 import CustomInput from '../components/Input';
-import logoSrc from '../../../../public/assets/images/Avatar.png';
 
 const SettingsPage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -105,7 +105,6 @@ const SettingsPage = () => {
   };
   return (
     <main className="user-info settings">
-      {/* {user && ( */}
       <div className="settings__content">
         <div className="settings__block">
           <h4 className="settings__block-title">Change theme</h4>
