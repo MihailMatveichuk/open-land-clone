@@ -30,6 +30,7 @@ export type authUser = {
   photoURL: string;
   uid: string;
   user: string;
+  email: string;
 };
 
 export interface IChatContext {

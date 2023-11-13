@@ -13,8 +13,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@firebase/util": "^1.9.3",
     "@github/file-attachment-element": "^3.1.0",
+    "@mui/material": "^5.14.17",
     "@zeit/next-sass": "^1.0.1",
     "am-emoji-picker": "^0.6.1",
     "axios": "^1.5.1",

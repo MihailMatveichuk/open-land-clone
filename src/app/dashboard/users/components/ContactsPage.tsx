@@ -68,6 +68,7 @@ const ContactsPage = () => {
     currentUser?.uid && gtChats();
   }, [currentUser?.uid]);
 
+  const firstUser = filteredUsers![0];
   return (
     <>
       <Aside title={'Users'}>
@@ -83,12 +84,14 @@ const ContactsPage = () => {
           loading={loading}
           users={filteredUsers}
           onUserSelect={handleSelect}
+          userUid={chosenUser?.uid}
         />
       </Aside>
       {/* {chosenUser && ( */}
       <UserInfo
         userUid={chosenUser?.uid}
         isMain={false}
+        firstUser={firstUser}
         onSendMessage={handleSendMessage}
       />
       {/* )} */}

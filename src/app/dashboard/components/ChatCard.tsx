@@ -1,7 +1,7 @@
 import { doc, DocumentData, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../../../../firebase';
-import Avatar from '../../../../public/assets/images/Avatar.png';
+import Avatar from '../../../../public/assets/images/logo.png';
 import Image from 'next/image';
 
 type ChatCardProps = {
@@ -53,7 +53,7 @@ const ChatCard: React.FC<ChatCardProps> = ({ chat, handleSelect }) => {
             </div>
 
             <div className="user-chat__message">
-              <span>{user.displayName}</span>
+              <span> {user.displayName.trim() || user.email}</span>
               <div>{chat.lastMessage}</div>
             </div>
           </div>

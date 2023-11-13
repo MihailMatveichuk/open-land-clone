@@ -33,10 +33,7 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
   );
   const [err, setError] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-
   const [loading, setLoading] = useState<boolean>(true);
-
-  console.log(params.slug);
 
   const gtChats = () => {
     setLoading(true);
@@ -66,8 +63,8 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
     setSearchValue(val);
     setLoading(true);
     setFilteredChats([]);
-    const users = [];
-    const usersInChat = chats!.map((chat) => chat.memberId);
+    const users: DocumentData[] = [];
+    const usersInChat = chats!.map((chat: { memberId: any }) => chat.memberId);
     const querySnapshot = await getDocs(
       query(collection(db, 'users'), where('uid', 'in', usersInChat))
     );
@@ -79,18 +76,20 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
       setFilteredChats(chats);
       setLoading(false);
     } else {
-      const filtered = chats!.filter((chat) => {
-        const user = users.find((user) => user.uid === chat.memberId);
-        console.log(user);
+      const filtered = chats!.filter(
+        (chat: { memberId: any; lastMessage: string }) => {
+          const user = users.find((user) => user.uid === chat.memberId);
+          console.log(user);
 
-        if (!user) return false;
-        return (
-          (user.displayName &&
-            user.displayName.toLowerCase().includes(val.toLowerCase())) ||
-          (chat.lastMessage &&
-            chat.lastMessage.toLowerCase().includes(val.toLowerCase()))
-        );
-      });
+          if (!user) return false;
+          return (
+            (user.displayName &&
+              user.displayName.toLowerCase().includes(val.toLowerCase())) ||
+            (chat.lastMessage &&
+              chat.lastMessage.toLowerCase().includes(val.toLowerCase()))
+          );
+        }
+      );
       setFilteredChats(filtered);
       setLoading(false);
     }

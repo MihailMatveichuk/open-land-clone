@@ -317,6 +317,11 @@
 }
 
 .user-chat {
+  a{
+    text-decoration: none;
+    outline: none;
+    color: black;
+  }
   &__img-wrapper {
     position: relative;
   }
