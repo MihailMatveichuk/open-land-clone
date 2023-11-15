@@ -4,6 +4,7 @@ import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { PropsWithChildren, useContext, useEffect } from 'react';
 import Launcher from '../dashboard/components/Launcher';
+import { RegisterContextProvider } from '@/context/RegisterContext';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { currentUser } = useContext(AuthContext);
@@ -18,7 +19,13 @@ const Layout = ({ children }: PropsWithChildren) => {
     return <>{children}</>;
   };
 
-  return <ProtectedRoute>{children}</ProtectedRoute>;
+  console.log(currentUser);
+
+  return (
+    <ProtectedRoute>
+      <RegisterContextProvider>{children}</RegisterContextProvider>
+    </ProtectedRoute>
+  );
 };
 
 export default Layout;
