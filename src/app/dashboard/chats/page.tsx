@@ -147,6 +147,7 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
           loading={loading}
           users={undefined}
           onUserSelect={handleSelect}
+          userUid={null}
         />
       </Aside>
       <Chat />

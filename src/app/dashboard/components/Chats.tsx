@@ -54,7 +54,6 @@ const Chats: React.FC<ChatsProps> = (
   { searchParams }
 ) => {
   const { dispatch } = useContext(ChatContext);
-  const [userValue, setUserValue] = useState<number>(10);
   const [isUser, setIsUser] = useState<boolean>(true);
 
   const handleSelect = (u: any) => {
@@ -69,68 +68,54 @@ const Chats: React.FC<ChatsProps> = (
     }
   }, [users?.length]);
 
-  const handleAddUsers = () => {
-    if (!users) {
-      return;
-    } else {
-      if (users.length > 9 && users.length > userValue) {
-        setUserValue(userValue + 5);
-      } else {
-        setIsUser(false);
-      }
-    }
-  };
-
   return (
     <div className="chats">
       {loading && <Loading />}
       <ul className="chats__list">
         {users != undefined &&
-          users
-            .filter((_: any, i: number) => i <= userValue)
-            .map((user: authUser) => (
-              <li
-                className="user-chat"
-                key={user.uid}
-                onClick={() => onUserSelect(user)}
-                role="presentation"
+          users.map((user: authUser) => (
+            <li
+              className="user-chat"
+              key={user.uid}
+              onClick={() => onUserSelect(user)}
+              role="presentation"
+            >
+              <Link
+                href={{
+                  pathname: '/dashboard/users',
+                  query: {
+                    ...searchParams,
+                    uid: user.uid,
+                  },
+                }}
               >
-                <Link
-                  href={{
-                    pathname: '/dashboard/users',
-                    query: {
-                      ...searchParams,
-                      uid: user.uid,
-                    },
-                  }}
-                >
-                  <div className="container">
-                    <div className="user-chat__inner">
-                      {user.photoURL ? (
-                        <Image
-                          width={50}
-                          height={50}
-                          className="user-chat__img"
-                          src={user.photoURL}
-                          alt="User Photo"
-                        />
-                      ) : (
-                        <Image
-                          className="user-chat__img"
-                          src={Avatar}
-                          width={50}
-                          height={50}
-                          alt="User Photo"
-                        />
-                      )}
-                      <div className="user-chat__message">
-                        <span>{user.displayName.trim() || user.email}</span>
-                      </div>
+                <div className="container">
+                  <div className="user-chat__inner">
+                    {user.photoURL ? (
+                      <Image
+                        width={50}
+                        height={50}
+                        className="user-chat__img"
+                        src={user.photoURL}
+                        alt="User Photo"
+                      />
+                    ) : (
+                      <Image
+                        className="user-chat__img"
+                        src={Avatar}
+                        width={50}
+                        height={50}
+                        alt="User Photo"
+                      />
+                    )}
+                    <div className="user-chat__message">
+                      <span>{user.displayName.trim() || user.email}</span>
                     </div>
                   </div>
-                </Link>
-              </li>
-            ))}
+                </div>
+              </Link>
+            </li>
+          ))}
         {chats != undefined &&
           chats
             ?.sort(
@@ -151,17 +136,7 @@ const Chats: React.FC<ChatsProps> = (
           justifyContent: 'center',
           marginTop: '1rem',
         }}
-      >
-        {isUser ? (
-          <Button
-            variant="outlined"
-            startIcon={<AiOutlineCloudDownload />}
-            onClick={handleAddUsers}
-          >
-            Load more
-          </Button>
-        ) : null}
-      </div>
+      ></div>
     </div>
   );
 };

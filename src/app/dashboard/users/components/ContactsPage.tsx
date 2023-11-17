@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import Aside from '../../components/Aside';
 import SearchInput from '../../components/SearchInput';
 import UserInfo from '../../main/components/UserInfo';
+import { useSearchParams } from 'next/navigation';
 
 const ContactsPage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -20,18 +21,19 @@ const ContactsPage = () => {
   const [filteredUsers, setFilteredUsers] = useState<DocumentData | undefined>(
     []
   );
-
   const [chosenUser, setChosenUser] = useState<DocumentData | null>(null);
   const [err, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState('');
+  const searchParams = useSearchParams();
+  const uid = searchParams.get('uid');
 
   const gtChats = () => {
     setLoading(true);
     const unsub = onSnapshot(collection(db, 'users'), (querySnapshot) => {
       const ppl: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
-        if (doc.data().uid !== currentUser!.uid) {
+        if (doc.data().uid !== uid) {
           ppl.push(doc.data());
         }
       });
@@ -61,12 +63,12 @@ const ContactsPage = () => {
   };
 
   const handleSendMessage = async () => {
-    push(`/dashboard/chats/${chosenUser!.uid}`);
+    push(`/dashboard/chats/${uid}`);
   };
 
   useEffect(() => {
-    currentUser?.uid && gtChats();
-  }, [currentUser?.uid]);
+    uid && gtChats();
+  }, [uid]);
 
   const firstUser = filteredUsers![0];
   return (

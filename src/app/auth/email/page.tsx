@@ -28,7 +28,7 @@ const AuthEmail = () => {
       await setPersistence(auth, browserSessionPersistence);
       const res = await signInWithEmailAndPassword(auth, email, password);
       await loginUser(res.user.uid);
-      push('/');
+      push('/dashboard/main');
     } catch (err) {
       console.log(err);
     }
@@ -36,6 +36,7 @@ const AuthEmail = () => {
 
   const onSubmitHandlerEmail = async () => {
     try {
+      push('/register');
       const user = await createUserWithEmailAndPassword(auth, email, password);
       const u = await checkUser(user.user.uid);
       if (!u && user.user.email) {
@@ -43,7 +44,6 @@ const AuthEmail = () => {
           email: user.user.email,
           uid: user.user.uid,
         });
-        push('/register');
       } else {
         push('/dashboard/main');
       }
