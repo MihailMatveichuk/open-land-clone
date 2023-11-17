@@ -23,6 +23,7 @@ import Aside from '../components/Aside';
 import Chat from '../components/Chat';
 import SearchInput from '../components/SearchInput';
 import Chats from '../components/Chats';
+import { useSearchParams } from 'next/navigation';
 
 const ChatPage = ({ params }: { params: { slug: string } }) => {
   const { currentUser } = useContext(AuthContext);
@@ -33,8 +34,9 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
   );
   const [err, setError] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-
   const [loading, setLoading] = useState<boolean>(true);
+  const searchParams = useSearchParams();
+  const uid = searchParams.get('uid');
 
   const gtChats = () => {
     setLoading(true);
@@ -149,7 +151,13 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
           userUid={null}
         />
       </Aside>
-      <Chat />
+      {uid ? (
+        <Chat />
+      ) : (
+        <div>
+          <h2>Choice a chart</h2>
+        </div>
+      )}
     </>
   );
 };

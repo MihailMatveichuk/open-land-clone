@@ -59,6 +59,7 @@ export interface IChatState {
   user: string | null;
 }
 export interface IMessageFirebase {
+  date: any;
   id: string;
   senderId: string;
   img: string;

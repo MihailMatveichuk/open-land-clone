@@ -19,8 +19,6 @@ const Layout = ({ children }: PropsWithChildren) => {
     return <>{children}</>;
   };
 
-  console.log(currentUser);
-
   return (
     <ProtectedRoute>
       <RegisterContextProvider>{children}</RegisterContextProvider>

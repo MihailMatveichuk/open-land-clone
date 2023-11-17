@@ -70,8 +70,6 @@ const SettingsPage = () => {
                 email,
               });
               const user1 = await checkUser(currentUser!.uid);
-
-              console.log(user1);
             } catch (err) {
               console.log(err);
             }

@@ -11,15 +11,15 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="chat__content">
-        {/* {data.chatId && data.user && ( */}
-        <>
-          <ChatInfo userRef={data.user} chatId={data.chatId} />
-          <div className="chat__messages-container">
-            <Messages />
-            <InputPanel />
-          </div>
-        </>
-        {/* )} */}
+        {data.chatId && data.user && (
+          <>
+            <ChatInfo userRef={data.user} chatId={data.chatId} />
+            <div className="chat__messages-container">
+              <Messages />
+              <InputPanel />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

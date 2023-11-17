@@ -29,13 +29,23 @@
   .navbar_top_right {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    .navbar_icon{
+      width: 20px;
+      height: 20px;
+      color: grey;
+      &:hover{
+        color: var(--theme-primary);
+      }
+    }
   }
 }
 
 .chat {
   flex: 1;
-
   &__messages-container {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -49,10 +59,26 @@
     flex-direction: column;
     height: 100%;
   }
+  &-icons{
+    display: flex;
+    gap: 1rem;
+    cursor: pointer;
+    color: grey;
+    &__icon{
+      width: 25px;
+      height: 25px;
+      &:hover{
+        color: var(--theme-primary-hovered);
+      }
+    }
+
+  }
   &-info {
     height: 56px;
     padding: 6px 0;
     background: var(--theme-chat-info-bg);
+    border-bottom: 0.5px solid rgba(164, 162, 162, 0.406);
+    border-radius: 10px;
     img {
       width: 40px;
       height: 40px;
@@ -241,17 +267,20 @@
   }
   &.owner {
     justify-content: flex-end;
-    .message-text {
-      color: var(--chat-info-bg);
-    }
+
     .message-content {
-      background: var(--theme-primary-active);
+      background: var(--theme-background-message);
       order: 0;
       color: var(--chat-info-bg) !important;
+      border-top-right-radius: 30px;
+      border-bottom-left-radius: 30px;
+      padding: 1rem;
+      max-width: 350px;
+      word-break: break-all; 
 
       &::before {
         border-bottom-left-radius: 0.8rem 0.7rem;
-        border-right: 1rem solid var(--theme-primary-active);
+        border-right: 1rem solid var(--chat-info-bg);
         right: -0.35rem;
         transform: translate(0, -0.1rem);
       }
@@ -261,6 +290,9 @@
         right: -40px;
         transform: translate(-30px, -2px);
         width: 10px;
+      }
+      .message-text {
+        color: var(--chat-info-bg);
       }
     }
     .message-info {
@@ -272,6 +304,9 @@
   }
   &.sender {
     .message-content {
+      border-top-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      padding: 1rem;
       &:before {
         border-bottom-right-radius: 0.8rem 0.7rem;
         border-left: 1rem solid var(--chat-bg);

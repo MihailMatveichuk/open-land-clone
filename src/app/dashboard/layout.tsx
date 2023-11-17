@@ -28,8 +28,6 @@ export default function RootLayout({
     return <>{children}</>;
   };
 
-  console.log(currentUser);
-
   return (
     <html lang="en">
       <body

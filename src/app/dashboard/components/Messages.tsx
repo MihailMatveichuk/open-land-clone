@@ -9,57 +9,30 @@ import { IMessageFirebase } from '../../../../types';
 import Message from './Message';
 
 const Messages = () => {
-  // const [messages, setMessages] = useState([]);
-  // const { data } = useContext(ChatContext);
-  const refs = useRef<HTMLLIElement>(null);
-  // useEffect(() => {
-  //   refs.current?.scrollIntoView({ behavior: 'smooth' });
-  // }, [messages]);
+  const [messages, setMessages] = useState([]);
+  const { data } = useContext(ChatContext);
 
-  const messages = [
-    {
-      id: '1',
-      senderId: '2',
-      img: '../../../../public/assets/images/Avatar1.png',
-      text: 'Hello bro!!!',
-      // date: Timestamp,
-      like: true,
-      dislike: false,
-    },
-    {
-      id: '1',
-      senderId: '2',
-      img: '../../../../public/assets/images/Avatar1.png',
-      text: 'Hello bro!!!',
-      // date: Timestamp,
-      like: true,
-      dislike: false,
-    },
-    {
-      id: '1',
-      senderId: '2',
-      img: '../../../../public/assets/images/Avatar1.png',
-      text: 'Hello bro!!!',
-      // date: Timestamp,
-      like: true,
-      dislike: false,
-    },
-  ];
-  // useEffect(() => {
-  //   if (data.chatId != null) {
-  //     const unSub = onSnapshot(doc(db, 'messages', data.chatId), (doc) => {
-  //       if (doc.exists()) {
-  //         setMessages(doc.data().messages);
-  //       } else {
-  //         setMessages([]);
-  //         createChatMessages(data.chatId);
-  //       }
-  //     });
-  //     return () => {
-  //       unSub();
-  //     };
-  //   }
-  // }, [data.chatId]);
+  const refs = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    refs.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  useEffect(() => {
+    if (data.chatId != null) {
+      const unSub = onSnapshot(doc(db, 'messages', data.chatId), (doc) => {
+        if (doc.exists()) {
+          setMessages(doc.data().messages);
+        } else {
+          setMessages([]);
+          createChatMessages(data.chatId);
+        }
+      });
+      return () => {
+        unSub();
+      };
+    }
+  }, [data.chatId]);
 
   return (
     <div className="messages">
@@ -68,9 +41,6 @@ const Messages = () => {
           {messages.map((m: IMessageFirebase) => (
             <Message message={m} key={m.id} />
           ))}
-          {/* {messages.map((m: IMessageFirebase) => (
-            <Message message={m} key={m.id} />
-          ))} */}
           <li ref={refs}></li>
         </ul>
       </div>

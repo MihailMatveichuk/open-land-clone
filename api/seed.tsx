@@ -98,7 +98,6 @@ export const createChat = async (uid: string, uid2: string) => {
   const uidChat = uuidv4();
   const user1 = await checkUser(uid);
   const user2 = await checkUser(uid2);
-  console.log(user1, user2);
 
   await updateDoc(doc(db, 'chats', uid), {
     chats: arrayUnion({

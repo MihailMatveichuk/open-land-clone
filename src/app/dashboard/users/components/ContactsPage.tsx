@@ -12,6 +12,7 @@ import Aside from '../../components/Aside';
 import SearchInput from '../../components/SearchInput';
 import UserInfo from '../../main/components/UserInfo';
 import { useSearchParams } from 'next/navigation';
+import { createChat, getChat } from '../../../../../api/seed';
 
 const ContactsPage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -63,7 +64,32 @@ const ContactsPage = () => {
     }
   };
 
+  // const handleSendMessage = async () => {
   const handleSendMessage = async () => {
+    if (!uid) {
+      return;
+    }
+    const chat = await getChat(currentUser!.uid, uid);
+    if (!chat) {
+      await createChat(currentUser!.uid, uid);
+      const newChat = await getChat(currentUser!.uid, uid);
+      dispatch({
+        type: ActionType.ChangeUser,
+        payload: {
+          user: uid,
+          uid: newChat[0].uid,
+        },
+      });
+    } else {
+      dispatch({
+        type: ActionType.ChangeUser,
+        payload: {
+          user: uid,
+          uid: chat[0].uid,
+        },
+      });
+    }
+    // };
     push(`/dashboard/chats?uid=${uid}`);
   };
 
