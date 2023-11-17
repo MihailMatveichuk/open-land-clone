@@ -64,7 +64,7 @@ const ContactsPage = () => {
   };
 
   const handleSendMessage = async () => {
-    push(`/dashboard/chats/${chosenUser!.uid}`);
+    push(`/dashboard/chats?uid=${uid}`);
   };
 
   useEffect(() => {

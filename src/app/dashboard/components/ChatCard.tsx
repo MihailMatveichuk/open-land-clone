@@ -3,13 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../../../../firebase';
 import Avatar from '../../../../public/assets/images/logo.png';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 type ChatCardProps = {
   chat: DocumentData;
   handleSelect: ({ uid, user }: { uid: string; user: string }) => void;
 };
 
-const ChatCard: React.FC<ChatCardProps> = ({ chat, handleSelect }) => {
+const ChatCard: React.FC<ChatCardProps> = (
+  { chat, handleSelect },
+  { searchParams }
+) => {
+  const params = useSearchParams();
+  const uid = params.get('uid');
+
   const [user, setUser] = useState<DocumentData | null>(null);
   const getData = async () => {
     const unsub = onSnapshot(doc(db, 'users', chat.memberId), async (d) => {
@@ -40,25 +48,38 @@ const ChatCard: React.FC<ChatCardProps> = ({ chat, handleSelect }) => {
       }
       role="presentation"
     >
-      {user && (
-        <div className="container">
-          <div className="user-chat__inner">
-            <div className="user-chat__img-wrapper">
-              <img
-                className="user-chat__img"
-                src={user.photoURL || Avatar}
-                alt=""
-              />
-              {user.online && <div className="user-chat__online"></div>}
-            </div>
+      <Link
+        href={{
+          pathname: `/dashboard/chats/`,
+          query: {
+            ...searchParams,
+            uid,
+            user: user?.displayName ? user.displayName : user?.phone,
+          },
+        }}
+      >
+        {user && (
+          <div className="container">
+            <div className="user-chat__inner">
+              <div className="user-chat__img-wrapper">
+                <Image
+                  className="user-chat__img"
+                  src={user.photoURL || Avatar}
+                  alt=""
+                  width={50}
+                  height={50}
+                />
+                {user.online && <div className="user-chat__online"></div>}
+              </div>
 
-            <div className="user-chat__message">
-              <span> {user.displayName.trim() || user.email}</span>
-              <div>{chat.lastMessage}</div>
+              <div className="user-chat__message">
+                <span> {user.displayName.trim() || user.email}</span>
+                <div>{chat.lastMessage}</div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Link>
     </li>
   );
 };

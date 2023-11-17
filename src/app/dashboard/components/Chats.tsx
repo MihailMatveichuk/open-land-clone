@@ -24,7 +24,6 @@ import {
 } from 'firebase/firestore';
 import Loading from './Loading';
 import ChatCard from './ChatCard';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 const Avatar = require('../../../../public/assets/images/logo.png');
