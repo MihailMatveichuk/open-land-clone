@@ -38,6 +38,8 @@ const AuthEmail = () => {
     try {
       push('/register');
       const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+
       const u = await checkUser(user.user.uid);
       if (!u && user.user.email) {
         await createUserViaEmail({

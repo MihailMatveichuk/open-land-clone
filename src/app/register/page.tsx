@@ -1,8 +1,8 @@
 'use client';
 
 import InputFile from './components/InputFile';
-import { useState, useContext } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useContext, useEffect } from 'react';
+import { redirect, useRouter } from 'next/navigation';
 import { AuthContext } from '@/context/AuthContext';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../../firebase';
@@ -18,8 +18,14 @@ const logoSrc = require('../../../public/assets/images/Avatar.png');
 
 const Register = () => {
   const { currentUser } = useContext(AuthContext);
+  const [isSet, setIsSet] = useState(false);
   const [image, setImage] = useState<string | ArrayBuffer>(logoSrc);
   const { push } = useRouter();
+
+  if (!isSet) {
+    redirect('/register');
+  }
+
   const handleSubmit = async (e: {
     target: any;
     preventDefault: () => void;

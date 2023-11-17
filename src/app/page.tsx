@@ -2,14 +2,12 @@
 
 import Launcher from '@/app/dashboard/components/Launcher';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useLayoutEffect } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 export default function Home() {
   const { currentUser } = useContext(AuthContext);
   const { push } = useRouter();
-
-  console.log(currentUser);
 
   if (currentUser === undefined) {
     return <Launcher />;
