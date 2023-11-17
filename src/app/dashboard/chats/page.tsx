@@ -44,7 +44,6 @@ const ChatPage = ({ params }: { params: { slug: string } }) => {
 
         if (data) {
           console.log(data.chats, 'data');
-
           setChats(data.chats);
           setFilteredChats(data.chats);
         }

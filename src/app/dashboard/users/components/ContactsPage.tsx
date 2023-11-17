@@ -26,6 +26,7 @@ const ContactsPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState('');
   const searchParams = useSearchParams();
+
   const uid = searchParams.get('uid');
 
   const gtChats = () => {
@@ -33,7 +34,7 @@ const ContactsPage = () => {
     const unsub = onSnapshot(collection(db, 'users'), (querySnapshot) => {
       const ppl: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
-        if (doc.data().uid !== uid) {
+        if (doc.data().uid !== currentUser!.uid) {
           ppl.push(doc.data());
         }
       });
@@ -63,14 +64,13 @@ const ContactsPage = () => {
   };
 
   const handleSendMessage = async () => {
-    push(`/dashboard/chats/${uid}`);
+    push(`/dashboard/chats/${chosenUser!.uid}`);
   };
 
   useEffect(() => {
-    uid && gtChats();
-  }, [uid]);
+    currentUser?.uid && gtChats();
+  }, [currentUser?.uid]);
 
-  const firstUser = filteredUsers![0];
   return (
     <>
       <Aside title={'Users'}>
@@ -89,14 +89,17 @@ const ContactsPage = () => {
           userUid={chosenUser?.uid}
         />
       </Aside>
-      {/* {chosenUser && ( */}
-      <UserInfo
-        userUid={chosenUser?.uid}
-        isMain={false}
-        firstUser={firstUser}
-        onSendMessage={handleSendMessage}
-      />
-      {/* )} */}
+      {!uid ? (
+        <div>
+          <h2>Choice a user</h2>
+        </div>
+      ) : (
+        <UserInfo
+          userUid={uid}
+          isMain={false}
+          onSendMessage={handleSendMessage}
+        />
+      )}
     </>
   );
 };

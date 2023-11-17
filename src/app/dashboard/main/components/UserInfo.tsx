@@ -15,14 +15,12 @@ type UserInfoProps = {
   userUid: string;
   isMain: boolean;
   onSendMessage?: () => void;
-  firstUser?: DocumentData | undefined;
 };
 
 const UserInfo: React.FC<UserInfoProps> = ({
   userUid,
   isMain = false,
   onSendMessage,
-  firstUser,
 }) => {
   const [user, setUser] = useState<DocumentData | null>(null);
   useEffect(() => {
@@ -36,17 +34,11 @@ const UserInfo: React.FC<UserInfoProps> = ({
     }
   };
 
-  const date = !userUid
-    ? firstUser?.createdAt && firstUser.createdAt.toDate().toLocaleString()
-    : user
-    ? user.createdAt && user.createdAt.toDate().toLocaleString()
-    : '-';
+  const date = user?.createdAt.toDate().toLocaleString();
   const [isLinkCopied, setLinkCopied] = useState<boolean>(false);
 
   const copyLink = useCallback(() => {
-    const link =
-      window.location.origin +
-      `/dashboard/users?uid=${!userUid ? firstUser!.uid : user!.uid}`;
+    const link = window.location.origin + `/dashboard/users?uid=${user!.uid}`;
     navigator.clipboard.writeText(link);
     setLinkCopied(true);
     setTimeout(() => {
@@ -62,20 +54,14 @@ const UserInfo: React.FC<UserInfoProps> = ({
             <Image
               width={100}
               height={100}
-              src={!userUid ? firstUser?.photoURL : user?.photoURL || Avatar}
+              src={user?.photoURL || Avatar}
               alt="photoURL"
             />
-            <h2>{!userUid ? firstUser?.displayName : user?.displayName}</h2>
+            <h2>{user?.displayName}</h2>
             {!isMain && (
               <>
                 <div className="user-info__last-seen">
-                  {!userUid
-                    ? firstUser?.online
-                      ? 'online'
-                      : getLastSeenText(firstUser?.lastSeen)
-                    : user?.online
-                    ? 'online'
-                    : getLastSeenText(user?.lastSeen)}
+                  {user?.online ? 'online' : getLastSeenText(user?.lastSeen)}
                 </div>
                 <div className="user-info__btn-container">
                   <button className="btn btn--primary" onClick={onSendMessage}>
@@ -157,19 +143,11 @@ const UserInfo: React.FC<UserInfoProps> = ({
           <ul className="user-info__short-info">
             <li>
               <Image alt="phone" src={phoneSrc} height={25} width={25} />
-              {!userUid
-                ? firstUser?.phone || '-'
-                : user?.phone
-                ? user.phone
-                : '-'}
+              {user?.phone ? user.phone : '-'}
             </li>
             <li>
               <Image alt="email" src={emailSrc} height={25} width={25} />
-              {!userUid
-                ? firstUser?.email || '-'
-                : user?.email
-                ? user.email
-                : '-'}
+              {user?.email ? user.email : '-'}
             </li>
             <li>
               <Image alt="joined" src={joinedSrc} height={25} width={25} />
